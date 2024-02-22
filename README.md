@@ -9,3 +9,5 @@ This repository is a documented tutorial on creating a portfolio using Three.jsâ
 ## Thank You!
 
 Provided to you by sheCodes' Webmaster ðŸ’“
+
+![Workshop pic](./3jstut/public/example.png)
