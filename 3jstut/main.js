@@ -26,3 +26,23 @@ renderer.setSize (window.innerWidth,window.innerHeight);
 camera.position.setZ(30);
 
 renderer.render(scene,camera);
+
+//lets create out first object using 3js built in geometry
+const geometry = new THREE.TorusGeometry(10,3,16,100)
+
+//now we need to add material to give the ovject a color and texture
+//3js offers built in material as well so we will use that
+const material = new THREE.MeshBasicMaterial({color: 0xFF6347, wireframe:true});
+
+//now we create a mesh to combine the geometry and material
+const torus= new THREE.Mesh(geometry,material);
+//to add it to the scene just scene.add it
+scene.add(torus)
+
+//rerender the scene using the animation function, loop
+function animate(){
+  requestAnimationFrame(animate);
+  renderer.render(scene,camera);
+}
+//call the rendering function
+animate()
