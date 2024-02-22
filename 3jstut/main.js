@@ -32,7 +32,19 @@ const geometry = new THREE.TorusGeometry(10,3,16,100)
 
 //now we need to add material to give the ovject a color and texture
 //3js offers built in material as well so we will use that
-const material = new THREE.MeshBasicMaterial({color: 0xFF6347, wireframe:true});
+//use standard material to see it react to lighting
+const material = new THREE.MeshStandardMaterial({color: 0xFF6347});
+
+//adding light to the scene
+const pointLight = new THREE.PointLight(0xffffff);
+//position it away from the center
+pointLight.position.set(5, 5, 5);
+
+//ambient light adds light to the entire scene
+const ambientLight = new THREE.AmbientLight(0xffffff);
+//make sure to add it to the scene
+scene.add(pointLight, ambientLight);
+
 
 //now we create a mesh to combine the geometry and material
 const torus= new THREE.Mesh(geometry,material);
@@ -42,6 +54,11 @@ scene.add(torus)
 //rerender the scene using the animation function, loop
 function animate(){
   requestAnimationFrame(animate);
+//to make the shape rotate when they are rendered
+torus.rotation.x += 0.01;
+torus.rotation.y += 0.005;
+torus.rotation.z += 0.01;
+
   renderer.render(scene,camera);
 }
 //call the rendering function
