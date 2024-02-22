@@ -61,7 +61,7 @@ function addStar() {
   //each sphere has a radius of .25
   const geometry = new THREE.SphereGeometry(0.25, 24, 24);
   //standard material
-  const material = new THREE.MeshStandardMaterial({ color: 0xffffff });
+  const material = new THREE.MeshStandardMaterial({ color: 0xFF1493 });
   //join them together
   const star = new THREE.Mesh(geometry, material);
 
@@ -77,6 +77,10 @@ function addStar() {
 //calling the function we created to make 200 stars
 Array(200).fill().forEach(addStar);
 
+
+//adding a space background
+const spaceTexture = new THREE.TextureLoader().load('space.jpeg');
+scene.background = spaceTexture;
 
 //rerender the scene using the animation function, loop
 function animate(){
