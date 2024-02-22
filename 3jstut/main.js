@@ -1,5 +1,7 @@
 import './style.css'
 import * as THREE from 'three';
+//import orbit controls to be able to interact with the objects
+import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls';
 
 // this is where we create the scene to hold all our objects and camera
 const scene = new THREE.Scene();
@@ -45,11 +47,14 @@ const ambientLight = new THREE.AmbientLight(0xffffff);
 //make sure to add it to the scene
 scene.add(pointLight, ambientLight);
 
-
 //now we create a mesh to combine the geometry and material
 const torus= new THREE.Mesh(geometry,material);
 //to add it to the scene just scene.add it
 scene.add(torus)
+
+//create a new orbit control, will listen to dom events on the mouse and
+//move camera position accordingly
+const controls= new OrbitControls(camera, renderer.domElement);
 
 //rerender the scene using the animation function, loop
 function animate(){
@@ -59,6 +64,8 @@ torus.rotation.x += 0.01;
 torus.rotation.y += 0.005;
 torus.rotation.z += 0.01;
 
+//make sure orbitcontrols are updated in animate function
+  controls.update();
   renderer.render(scene,camera);
 }
 //call the rendering function
