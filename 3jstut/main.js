@@ -56,6 +56,28 @@ scene.add(torus)
 //move camera position accordingly
 const controls= new OrbitControls(camera, renderer.domElement);
 
+//randomly generating stars to create an outer space scene
+function addStar() {
+  //each sphere has a radius of .25
+  const geometry = new THREE.SphereGeometry(0.25, 24, 24);
+  //standard material
+  const material = new THREE.MeshStandardMaterial({ color: 0xffffff });
+  //join them together
+  const star = new THREE.Mesh(geometry, material);
+
+  //randomly generate an x,y,z for each star
+  const [x, y, z] = Array(3)
+    .fill()
+    //helper function to randomly generate a number from -100 to 100
+    .map(() => THREE.MathUtils.randFloatSpread(100));
+
+  star.position.set(x, y, z);
+  scene.add(star);
+}
+//calling the function we created to make 200 stars
+Array(200).fill().forEach(addStar);
+
+
 //rerender the scene using the animation function, loop
 function animate(){
   requestAnimationFrame(animate);
