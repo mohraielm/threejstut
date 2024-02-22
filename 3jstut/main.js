@@ -82,6 +82,48 @@ Array(200).fill().forEach(addStar);
 const spaceTexture = new THREE.TextureLoader().load('space.jpeg');
 scene.background = spaceTexture;
 
+// My picture
+//texture load your picture, for now we will use example pic pfp.jpg
+const moTexture = new THREE.TextureLoader().load('pfp.jpg');
+//create a mesh with box geometry and basic material
+const momo = new THREE.Mesh(new THREE.BoxGeometry(3, 3, 3), new THREE.MeshBasicMaterial({ map: moTexture }));
+//add the object to the scene
+scene.add(momo);
+
+//we can create different shapes with texture mapping such as a moon
+const moonTexture = new THREE.TextureLoader().load('moon.jpeg');
+
+const moon = new THREE.Mesh(
+  //a sphere with a radius of 3 and mesh standard material
+  new THREE.SphereGeometry(3, 32, 32),
+  new THREE.MeshStandardMaterial({
+    map: moonTexture
+  })
+);
+scene.add(moon);
+
+//reposition the moon further down, where we will be scrolling to
+moon.position.z=30;
+moon.position.setX(-10);
+
+//define a function to be an event handler everytime a user scrolls
+function moveCamera(){
+  //gives dimensions of viewport to see where user is scrolling from
+  const t = document.body.getBoundingClientRect().top;
+  moon.rotation.x += 0.05;
+  moon.rotation.y += 0.075;
+  moon.rotation.z += 0.05;
+
+  momo.rotation.y += 0.01;
+  momo.rotation.z += 0.01;
+
+  camera.position.z = t * -0.01;
+  camera.position.x = t * -0.0002;
+  camera.rotation.y = t * -0.0002;
+}
+document.body.onscroll=moveCamera;
+moveCamera();
+
 //rerender the scene using the animation function, loop
 function animate(){
   requestAnimationFrame(animate);
